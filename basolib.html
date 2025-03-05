@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Probabilité de CBC superficiel</title>
+  <style>
+    /* Fond de page bleu pâle */
+    body {
+      background-color: #E6F7FF;
+      font-size: 1.2em;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Conteneur centré */
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 1em;
+      text-align: center;
+    }
+
+    /* Sous-titre */
+    .subtitle {
+      margin-top: -0.5em;
+      font-weight: normal;
+      font-size: 1em;
+      color: #333;
+    }
+
+    /* Chaque label sur une ligne distincte, espacement vertical */
+    label {
+      display: block;
+      margin: 0.5em 0;
+      text-align: left;
+    }
+
+    /* Le texte du label et la case à cocher */
+    .label-text {
+      display: inline-block;
+      width: 80%;
+      vertical-align: middle;
+    }
+    .label-checkbox {
+      float: right;
+      vertical-align: middle;
+      transform: scale(1.4);
+      margin-right: 1em;
+    }
+
+    /* Intertitres */
+    h2 {
+      margin-top: 2em;
+      margin-bottom: 0.5em;
+      font-size: 1.4em;
+    }
+
+    /* Zone de résultat */
+    #resultat {
+      margin-top: 1em;
+      font-weight: bold;
+      color: blue;
+      font-size: 1.5em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Probabilité que le CBC soit superficiel</h1>
+    <div class="subtitle">Etude BASOLIB de la FFFCEDV</div>
+
+    <!-- Petit texte explicatif -->
+    <p>Cochez/décochez les critères : la probabilité se met à jour automatiquement.</p>
+
+    <!-- 1) CRITÈRES PATIENT -->
+    <h2>Critères patient</h2>
+    <label>
+      <span class="label-text">Antécédent de CBC</span>
+      <input class="label-checkbox" type="checkbox" id="b2">
+    </label>
+
+    <!-- 2) CRITÈRES CLINIQUES -->
+    <h2>Critères cliniques</h2>
+    <label>
+      <span class="label-text">Localisation sur le visage</span>
+      <input class="label-checkbox" type="checkbox" id="b3">
+    </label>
+    <label>
+      <span class="label-text">Limites nettes</span>
+      <input class="label-checkbox" type="checkbox" id="b4">
+    </label>
+    <label>
+      <span class="label-text">Rosé, non pigmenté</span>
+      <input class="label-checkbox" type="checkbox" id="b5">
+    </label>
+    <label>
+      <span class="label-text">Plan, maculeux</span>
+      <input class="label-checkbox" type="checkbox" id="b6">
+    </label>
+    <label>
+      <span class="label-text">Palpable infiltré</span>
+      <input class="label-checkbox" type="checkbox" id="b7">
+    </label>
+    <label>
+      <span class="label-text">Perlé nodulaire</span>
+      <input class="label-checkbox" type="checkbox" id="b8">
+    </label>
+
+    <!-- 3) CRITÈRES DERMOSCOPIQUES -->
+    <h2>Critères dermoscopiques</h2>
+    <label>
+      <span class="label-text">Structures pigmentées brunes</span>
+      <input class="label-checkbox" type="checkbox" id="b9">
+    </label>
+    <label>
+      <span class="label-text">Structures vasculaires</span>
+      <input class="label-checkbox" type="checkbox" id="b10">
+    </label>
+    <label>
+      <span class="label-text">Structures pigmentées roses</span>
+      <input class="label-checkbox" type="checkbox" id="b11">
+    </label>
+
+    <!-- Plus de bouton "Calculer" : tout se fait en automatique -->
+
+    <p id="resultat"></p>
+  </div>
+
+  <script>
+    // La fonction de calcul (même logique que précédemment)
+    function calculer() {
+      // Récupération des états (1 si coché, 0 si non)
+      const b2  = document.getElementById('b2').checked  ? 1 : 0;
+      const b3  = document.getElementById('b3').checked  ? 1 : 0;
+      const b4  = document.getElementById('b4').checked  ? 1 : 0;
+      const b5  = document.getElementById('b5').checked  ? 1 : 0;
+      const b6  = document.getElementById('b6').checked  ? 1 : 0;
+      const b7  = document.getElementById('b7').checked  ? 1 : 0;
+      const b8  = document.getElementById('b8').checked  ? 1 : 0;
+      const b9  = document.getElementById('b9').checked  ? 1 : 0;
+      const b10 = document.getElementById('b10').checked ? 1 : 0;
+      const b11 = document.getElementById('b11').checked ? 1 : 0;
+
+      // C1..C11
+      const c1  = 1;
+      const c2  = (b2 === 1) ? 1 : 0;
+      const c3  = (b3 === 1) ? 1 : 0;
+      const c4  = ((b4 + b5 + b6) === 3) ? 1 : 0;
+      const c5  = ((b4 + b7 + b5) === 3) ? 1 : 0;
+      const c6  = (b4 === 0 && (b5 + b6) === 2) ? 1 : 0;
+      const c7  = ((b4 + b5 + b8) === 3) ? 1 : 0;
+      const c8  = ((b4 + b7 + b8) === 3) ? 1 : 0;
+      const c9  = (b9 === 1) ? 1 : 0;
+      const c10 = (b10 === 1) ? 1 : 0;
+      const c11 = (b11 === 1) ? 1 : 0;
+
+      // D1..D11
+      const d1  = -1.06252;
+      const d2  =  0.41565;
+      const d3  = -0.50335;
+      const d4  =  2.27421;
+      const d5  =  0.71015;
+      const d6  =  1.99999;
+      const d7  = -1.19771;
+      const d8  = -0.88780;
+      const d9  =  0.67261;
+      const d10 = -0.86310;
+      const d11 =  0.07945;
+
+      // Calcul de E1
+      const E1 = (c1 * d1) + (c2 * d2) + (c3 * d3)
+               + (c4 * d4) + (c5 * d5) + (c6 * d6)
+               + (c7 * d7) + (c8 * d8) + (c9 * d9)
+               + (c10 * d10) + (c11 * d11);
+
+      // Formule logistique => probabilité
+      const proba = 1 / (1 + Math.exp(-E1));
+
+      // Affichage : sans décimale
+      const pourcentage = (proba * 100).toFixed(0) + " %";
+      document.getElementById('resultat').textContent =
+        "Probabilité = " + pourcentage;
+    }
+
+    // Pour recalculer automatiquement à chaque fois qu'un checkbox change
+    document.addEventListener('DOMContentLoaded', () => {
+      // Sélectionne tous les <input type="checkbox"> et
+      // attache un écouteur d'événement "change"
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', calculer);
+      });
+
+      // Lance un premier calcul à l'ouverture de la page (si on veut un résultat initial)
+      calculer();
+    });
+  </script>
+</body>
+</html>
