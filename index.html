@@ -43,6 +43,12 @@
             text-align: left;
         }
 
+        .info-container p:last-child {
+            font-size: 0.8em; /* Réduit la taille de la police */
+            color: gray; /* Texte en gris */
+            font-style: italic; /* Optionnel : pour différencier encore plus */
+        }
+
         h1 {
             font-size: 1.5em;
             color: #004080;
@@ -145,15 +151,14 @@
         </div>
 
         <div class="info-container">
-            <p><strong>Interprétation :</strong></p>
-            <p>Au-dessus d'une probabilité de <span id="seuil1">xx</span>%, xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.</p>
-            <p>xxxxxxxxxxxxxxxx <span id="seuil2">yy</span>%, xxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxx  xxxxxxxxxxxxx xxxxxxxxx xxxxxxxxxxxxxx.</p>
-            <p>xxxxxxxxxxxxxxxx.</p>
-            <p>xxxxxxxxxxxxxxxx.</p>
+            <p><strong>Guide d'interprétation :</strong></p>
+            <p>En fixant un seuil à <span id="id1">70</span>%, le risque d'erreur pour des probabilités au-dessus du seuil (risque que le CBC ne soit pas superficiel à l'anapath) est inférieur à 12%.</p>
+            <p>En fixant un seuil à <span id="id2">20</span>%, le risque d'erreur pour des probabilités en-dessous du seuil (risque que le CBC soit superficiel à l'anapath) est inférieur 12%.</p>          
+            <p>NB : valable uniquement pour une population similaire à celle de l'étude (CBC vus par des dermatologues, en France)</p>
         </div>
             
     </div>
-    
+
     <script>
         function determinePatternClinique(b3, b4, b5, b6) {
             const combinaisonsClinique = [
